@@ -1,0 +1,24 @@
+spt.h
+-----------------
+
+- added variable MIN_CLUSTER_SIZE which thresholds clusters of pixels where acspo says cloud and spt says clear
+- updated mask flags
+- added prototypes: laplacian2, localmax2, and partial_derivative
+
+
+spt.cc
+------------------
+
+- updated maskfronts function to follow the new mask flags
+- removed overlay mask which is based on the amount of clear and cloud pixels in a window
+- added code to remove clusters based on the average difference from the reference of the cluster, and the size of the cluster
+- in connectfronts function, removed the last few lines that do a final dilation and thinning 
+- fixed partial derivative function calls to fix backwards variable names
+
+filter.cc
+--------------
+
+- added function partial_derivative which calculated dX and dY
+- added function localmax2 with new calculations for localmax
+- edited eigen mask to compute new residual mean across columns instead of rows
+- increased window size in eigen_mask to 11x11

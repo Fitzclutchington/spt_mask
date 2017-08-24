@@ -1,0 +1,267 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ACSPOFile	io.cc	379;"	f	class:ACSPOFile
+ACSPOFile	spt.h	190;"	c
+ACSPOTestsEasycloudMask	spt.cc	119;"	e	enum:__anon6	file:
+ALBEDO_HIGH	spt.h	49;"	d
+ALBEDO_LOW	spt.h	48;"	d
+ANOMALY_HIGH	spt.h	45;"	d
+ANOMALY_LOW	spt.h	46;"	d
+ANOMALY_THRESH	spt.h	47;"	d
+AQ_STEP	spt.h	56;"	d
+BT12_TEST	spt.h	102;"	e	enum:__anon9
+Blue	utils.cc	102;"	e	enum:__anon3	file:
+CCStatsOp	connectedcomponents.cc	67;"	s	namespace:cv::connectedcomponents	file:
+CCStatsOp	connectedcomponents.cc	74;"	f	struct:cv::connectedcomponents::CCStatsOp
+CC_STAT_AREA	connectedcomponents.h	13;"	e	enum:cv::__anon11
+CC_STAT_HEIGHT	connectedcomponents.h	12;"	e	enum:cv::__anon11
+CC_STAT_LEFT	connectedcomponents.h	9;"	e	enum:cv::__anon11
+CC_STAT_MAX	connectedcomponents.h	14;"	e	enum:cv::__anon11
+CC_STAT_TOP	connectedcomponents.h	10;"	e	enum:cv::__anon11
+CC_STAT_WIDTH	connectedcomponents.h	11;"	e	enum:cv::__anon11
+CHECKMAT	spt.h	30;"	d
+CLAMP	spt.h	31;"	d
+CMBits	utils.cc	95;"	e	enum:__anon2	file:
+CMClear	utils.cc	87;"	e	enum:__anon1	file:
+CMInvalid	utils.cc	90;"	e	enum:__anon1	file:
+CMProbably	utils.cc	88;"	e	enum:__anon1	file:
+CMSure	utils.cc	89;"	e	enum:__anon1	file:
+COLD_CLOUD	spt.h	99;"	e	enum:__anon9
+COMP_INVALID	spt.h	71;"	e	enum:__anon7
+COMP_SPECKLE	spt.h	72;"	e	enum:__anon7
+DEBUG	spt.h	63;"	e	enum:__anon7
+DELTAMAG_LOW	spt.h	37;"	d
+DELTARANGE_THRESH	spt.h	36;"	d
+DELTA_HIGH	spt.h	42;"	d
+DELTA_LOW	spt.h	41;"	d
+DQ_HIST_STEP	spt.h	59;"	d
+DQ_STEP	spt.h	54;"	d
+EDGE_THRESH	spt.h	50;"	d
+EIG_TEST	spt.h	105;"	e	enum:__anon9
+FRONT_GUESS	spt.h	110;"	e	enum:__anon9
+FRONT_INIT	spt.cc	12;"	e	enum:__anon5	file:
+FRONT_INVALID	spt.cc	11;"	e	enum:__anon5	file:
+FRONT_LEFT	spt.cc	14;"	e	enum:__anon5	file:
+FRONT_RIGHT	spt.cc	15;"	e	enum:__anon5	file:
+FRONT_SIDE_DIST	spt.h	74;"	e	enum:__anon7
+FRONT_THIN	spt.cc	13;"	e	enum:__anon5	file:
+G4	connectedcomponents.cc	187;"	m	namespace:cv::connectedcomponents	file:
+G8	connectedcomponents.cc	189;"	m	namespace:cv::connectedcomponents	file:
+GRAD_LOW	spt.h	35;"	d
+GRAD_THRESH	spt.h	34;"	d
+Green	utils.cc	101;"	e	enum:__anon3	file:
+ICE_TEST	spt.h	98;"	e	enum:__anon9
+JetBlue	utils.cc	105;"	e	enum:__anon3	file:
+JetGreen	utils.cc	106;"	e	enum:__anon3	file:
+JetRed	utils.cc	104;"	e	enum:__anon3	file:
+LAM2_THRESH	spt.h	38;"	d
+LAND	spt.h	97;"	e	enum:__anon9
+LUT_CLOUD	spt.h	67;"	e	enum:__anon7
+LUT_INVALID	spt.h	65;"	e	enum:__anon7
+LUT_LAT_SPLIT	spt.h	69;"	e	enum:__anon7
+LUT_OCEAN	spt.h	66;"	e	enum:__anon7
+LabelingImpl	connectedcomponents.cc	191;"	s	namespace:cv::connectedcomponents	file:
+MAXDIMS	io.cc	8;"	e	enum:__anon4	file:
+MIN_CLUSTER_SIZE	spt.h	77;"	e	enum:__anon7
+MIN_FRONT_FRAGMENT	spt.h	76;"	e	enum:__anon7
+MIN_FRONT_SIZE	spt.h	75;"	e	enum:__anon7
+MODIS_SWATH_SIZE	spt.h	115;"	e	enum:__anon10
+MaskCloud	spt.h	89;"	e	enum:__anon8
+MaskCloudClear	spt.h	90;"	e	enum:__anon8
+MaskCloudInvalid	spt.h	93;"	e	enum:__anon8
+MaskCloudOffset	spt.h	88;"	e	enum:__anon8
+MaskCloudProbably	spt.h	91;"	e	enum:__anon8
+MaskCloudSure	spt.h	92;"	e	enum:__anon8
+MaskDay	spt.h	82;"	e	enum:__anon8
+MaskGlint	spt.h	85;"	e	enum:__anon8
+MaskIce	spt.h	86;"	e	enum:__anon8
+MaskInvalid	spt.h	81;"	e	enum:__anon8
+MaskLand	spt.h	83;"	e	enum:__anon8
+MaskTwilightZone	spt.h	84;"	e	enum:__anon8
+NN_TEST	spt.h	101;"	e	enum:__anon9
+NOPOLE	resample.cc	215;"	e	enum:Pole	file:
+NORTHPOLE	resample.cc	213;"	e	enum:Pole	file:
+NoOp	connectedcomponents.cc	49;"	s	namespace:cv::connectedcomponents	file:
+NoOp	connectedcomponents.cc	50;"	f	struct:cv::connectedcomponents::NoOp
+OMEGA_HIGH	spt.h	44;"	d
+OMEGA_LOW	spt.h	43;"	d
+OQ_HIST_STEP	spt.h	60;"	d
+OQ_STEP	spt.h	55;"	d
+Point2ui64	connectedcomponents.cc	62;"	s	namespace:cv::connectedcomponents	file:
+Point2ui64	connectedcomponents.cc	64;"	f	struct:cv::connectedcomponents::Point2ui64
+Pole	resample.cc	212;"	g	file:
+Pole	resample.cc	217;"	t	typeref:enum:Pole	file:
+RATIO_TEST	spt.h	104;"	e	enum:__anon9
+Red	utils.cc	100;"	e	enum:__anon3	file:
+Resample	spt.h	118;"	t	typeref:struct:Resample
+Resample	spt.h	119;"	s
+SAVENC	spt.h	27;"	d
+SAVENCF	spt.h	28;"	d
+SAVENCN	spt.h	29;"	d
+SAVENPY	spt.h	26;"	d
+SGN	spt.h	24;"	d
+SOUTHPOLE	resample.cc	214;"	e	enum:Pole	file:
+SPT	spt.cc	341;"	c	file:
+SPT	spt.cc	378;"	f	class:SPT
+SQ	spt.h	23;"	d
+SST_HIGH	spt.h	40;"	d
+SST_LOW	spt.h	39;"	d
+STD_TEST	spt.h	100;"	e	enum:__anon9
+STD_THRESH	spt.h	51;"	d
+SetColor	utils.cc	109;"	d	file:
+TEST_CLOUD_BOUNDARY	spt.h	107;"	e	enum:__anon9
+TEST_GRADMAG_LOW	spt.h	108;"	e	enum:__anon9
+TEST_LAPLACIAN	spt.h	103;"	e	enum:__anon9
+TEST_LOCALMAX	spt.h	109;"	e	enum:__anon9
+TEST_UNIFORMITY	spt.h	106;"	e	enum:__anon9
+TQ_HIST_STEP	spt.h	58;"	d
+TQ_STEP	spt.h	53;"	d
+USED	spt.h	22;"	d
+VIIRS_SWATH_SIZE	spt.h	114;"	e	enum:__anon10
+White	utils.cc	99;"	e	enum:__anon3	file:
+Yellow	utils.cc	103;"	e	enum:__anon3	file:
+__FAST_BILATERAL__	fastBilateral.hpp	30;"	d
+_mcentroidsv	connectedcomponents.cc	70;"	m	struct:cv::connectedcomponents::CCStatsOp	file:
+_mstatsv	connectedcomponents.cc	68;"	m	struct:cv::connectedcomponents::CCStatsOp	file:
+_readvar	io.cc	393;"	f	class:ACSPOFile
+acspo	spt.cc	343;"	m	class:SPT	file:
+acspotests	spt.cc	366;"	m	class:SPT	file:
+adaptivethreshold	filters.cc	494;"	f
+apply_land_mask	utils.cc	567;"	f
+argsortlat	resample.cc	222;"	f	file:
+atan2mat	filters.cc	339;"	f
+avg3	resample.cc	99;"	f	file:
+avgfilter3	resample.cc	114;"	f	file:
+bilateralFilter	fastBilateral.hpp	92;"	f	namespace:cv_extend
+bilateralFilterImpl	fastBilateral.hpp	113;"	f	namespace:cv_extend
+border_mask	spt.cc	345;"	m	class:SPT	file:
+bt03	spt.cc	357;"	m	class:SPT	file:
+bt08	spt.cc	358;"	m	class:SPT	file:
+bt11	spt.cc	355;"	m	class:SPT	file:
+bt12	spt.cc	353;"	m	class:SPT	file:
+centroidsv	connectedcomponents.cc	71;"	m	struct:cv::connectedcomponents::CCStatsOp	file:
+check_cloud_histogram_3d	utils.cc	628;"	f
+clamp	fastBilateral.hpp	45;"	f	namespace:cv_extend
+close	io.cc	417;"	f	class:ACSPOFile
+compute_eigenvals	filters.cc	523;"	f
+connectedComponents	connectedcomponents.cc	367;"	f	class:cv
+connectedComponentsWithLimit	spt.cc	44;"	f	file:
+connectedComponentsWithStats	connectedcomponents.cc	382;"	f	class:cv
+connectedComponents_sub1	connectedcomponents.cc	340;"	f	namespace:cv
+connectedcomponents	connectedcomponents.cc	47;"	n	namespace:cv	file:
+connectfronts	spt.cc	135;"	f	file:
+corrcoef	utils.cc	229;"	f
+cosmat	filters.cc	357;"	f
+createvar	io.cc	235;"	f
+cv	connectedcomponents.cc	46;"	n	file:
+cv	connectedcomponents.h	6;"	n
+cv_extend	fastBilateral.hpp	34;"	n
+dX	spt.cc	349;"	m	class:SPT	file:
+dY	spt.cc	348;"	m	class:SPT	file:
+diff_11_12	spt.cc	364;"	m	class:SPT	file:
+diffcloudmask	utils.cc	122;"	f
+easyclouds	spt.cc	365;"	m	class:SPT	file:
+eigen	spt.cc	367;"	m	class:SPT	file:
+emalloc	utils.cc	59;"	f
+eprintf	utils.cc	8;"	f
+estrdup	utils.cc	47;"	f
+fileprefix	io.cc	12;"	f
+find	connectedcomponents.cc	145;"	f	namespace:cv::connectedcomponents
+findRoot	connectedcomponents.cc	122;"	f	namespace:cv::connectedcomponents
+finish	connectedcomponents.cc	104;"	f	struct:cv::connectedcomponents::CCStatsOp
+finish	connectedcomponents.cc	60;"	f	struct:cv::connectedcomponents::NoOp
+flattenL	connectedcomponents.cc	170;"	f	namespace:cv::connectedcomponents
+gaussianblurnan	filters.cc	479;"	f
+generate_cloud_histogram_3d	utils.cc	583;"	f
+generate_sst_histogram_3d	utils.cc	425;"	f
+get_landborders	utils.cc	546;"	f
+gradientmag	filters.cc	72;"	f
+gradientmag	filters.cc	84;"	f
+histogram_check_3d	utils.cc	492;"	f
+icemask	spt.cc	347;"	m	class:SPT	file:
+init	connectedcomponents.cc	52;"	f	struct:cv::connectedcomponents::NoOp
+init	connectedcomponents.cc	77;"	f	struct:cv::connectedcomponents::CCStatsOp
+integrals	connectedcomponents.cc	72;"	m	struct:cv::connectedcomponents::CCStatsOp	file:
+isfinite	spt.h	32;"	d
+lam2	spt.cc	363;"	m	class:SPT	file:
+landmask	spt.cc	344;"	m	class:SPT	file:
+laplace_operator	filters.cc	109;"	f
+laplace_operator2	filters.cc	125;"	f
+laplacian	filters.cc	13;"	f
+laplacian	spt.cc	361;"	m	class:SPT	file:
+lat	spt.cc	351;"	m	class:SPT	file:
+loadnc	io.cc	161;"	f
+localmax	filters.cc	147;"	f
+localmax2	filters.cc	229;"	f
+logkernel	filters.cc	398;"	f
+logmag	spt.cc	350;"	m	class:SPT	file:
+logprintf	utils.cc	26;"	f
+lon	spt.cc	352;"	m	class:SPT	file:
+magbt11	spt.cc	356;"	m	class:SPT	file:
+magbt12	spt.cc	354;"	m	class:SPT	file:
+main	spt.cc	529;"	f
+markup	spt.cc	346;"	m	class:SPT	file:
+maskfronts	spt.cc	298;"	f	file:
+maxn	utils.cc	206;"	f
+maxnorm3	filters.cc	23;"	f
+meangradientmag	filters.cc	131;"	f
+meann	utils.cc	190;"	f
+medSST	spt.cc	368;"	m	class:SPT	file:
+morphclosing	filters.cc	469;"	f
+nan_mask	spt.cc	369;"	m	class:SPT	file:
+nanblur	filters.cc	59;"	f
+nanlogfilter	filters.cc	454;"	f
+nanmask	filters.cc	431;"	f
+ncfatal	io.cc	175;"	f
+ncid	spt.cc	342;"	m	class:SPT	file:
+ncid	spt.h	195;"	m	class:ACSPOFile
+nelem	spt.h	25;"	d
+open_resampled	io.cc	190;"	f
+operator ()	connectedcomponents.cc	192;"	f	struct:cv::connectedcomponents::LabelingImpl
+operator ()	connectedcomponents.cc	55;"	f	struct:cv::connectedcomponents::NoOp
+operator ()	connectedcomponents.cc	93;"	f	struct:cv::connectedcomponents::CCStatsOp
+outpath	utils.cc	174;"	f
+partial_derivative	filters.cc	93;"	f
+r	spt.h	192;"	m	class:ACSPOFile
+rangefilter	filters.cc	379;"	f
+readvar	io.cc	32;"	f
+readvar	io.cc	405;"	f	class:ACSPOFile
+readvar	io.cc	411;"	f	class:ACSPOFile
+readvar_resampled	io.cc	209;"	f
+rectdilate	spt.cc	21;"	f
+recterode	spt.cc	27;"	f
+resample	spt.h	191;"	m	class:ACSPOFile
+resample_float32	resample.cc	340;"	f
+resample_init	resample.cc	325;"	f
+resample_interp	resample.cc	150;"	f	file:
+resample_sort	resample.cc	77;"	f
+resample_sort_	resample.cc	52;"	f	file:
+resample_unsort	resample.cc	33;"	f
+resample_unsort_	resample.cc	9;"	f	file:
+residuals	spt.cc	362;"	m	class:SPT	file:
+row_neighbor_diffs	utils.cc	670;"	f
+run	spt.cc	448;"	f	class:SPT
+sacspo	spt.h	120;"	m	struct:Resample
+savenc	io.cc	83;"	f
+setRoot	connectedcomponents.cc	133;"	f	namespace:cv::connectedcomponents
+set_union	connectedcomponents.cc	154;"	f	namespace:cv::connectedcomponents
+sind	spt.h	120;"	m	struct:Resample
+slandmask	spt.h	120;"	m	struct:Resample
+slat	spt.h	120;"	m	struct:Resample
+sst	spt.cc	360;"	m	class:SPT	file:
+sst_ref	spt.cc	370;"	m	class:SPT	file:
+sstmag	spt.cc	359;"	m	class:SPT	file:
+statsv	connectedcomponents.cc	69;"	m	struct:cv::connectedcomponents::CCStatsOp	file:
+stdfilter	filters.cc	272;"	f
+stdfilter1	filters.cc	292;"	f
+thinfronts	spt.cc	81;"	f	file:
+trilinear_interpolation	fastBilateral.hpp	56;"	f	namespace:cv_extend
+type2str	utils.cc	71;"	f
+writesptmask	spt.cc	208;"	f	file:
+writevar	io.cc	324;"	f
+x	connectedcomponents.cc	63;"	m	struct:cv::connectedcomponents::Point2ui64	file:
+y	connectedcomponents.cc	63;"	m	struct:cv::connectedcomponents::Point2ui64	file:
