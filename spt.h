@@ -94,9 +94,9 @@ enum {
 };
 
 enum {
-	LAND = -12,
-	ICE_TEST = -11,
-	COLD_CLOUD = -10,
+	LAND = -11,
+	ICE_TEST = -10,
+	COLD_CLOUD = -9,
 	STD_TEST = -8,
 	NN_TEST = -7,
 	BT12_TEST = -6,
@@ -143,8 +143,8 @@ void histogram_check_3d(const Mat1f &sst,  Mat_<schar> &frontmask, const Mat1f h
 void generate_sst_histogram_3d(const Mat1f &sst,  const Mat_<schar> &mask, Mat1f &hist, int flag);
 void get_landborders(const Mat &land_mask, Mat &border_mask,int kernel_size);
 void apply_land_mask(const Mat1b &landmask,Mat1f &clear);
-void generate_cloud_histogram_3d(const Mat1f &d1, const Mat1f &d2, const Mat1f &d3, const float *lows, const float *highs, const float *steps, const Mat1b &mask, Mat1f &hist);
-void check_cloud_histogram_3d(const Mat1f &d1, const Mat1f &d2, const Mat1f &d3, const float *lows, const float *highs, const float *steps, const Mat1b &mask,const Mat1f &hist, int flag, Mat_<schar> &frontmask , Mat1f &hist_count);
+void generate_cloud_histogram_3d(const Mat1f &d1, const Mat1f &d2, const Mat1f &d3, const float *lows, const float *highs, const float *steps, const Mat1b &mask, const Mat1b &border_mask, Mat1f &hist);
+void check_cloud_histogram_3d(const Mat1f &d1, const Mat1f &d2, const Mat1f &d3, const float *lows, const float *highs, const float *steps, const Mat1b &mask,const Mat1f &hist, int flag, Mat_<schar> &frontmask ,  const Mat1b &border_mask, Mat1f &hist_count);
 void row_neighbor_diffs(const Mat1f &src, Mat1f &dst);
 
 // io.cc

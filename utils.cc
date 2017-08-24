@@ -581,7 +581,7 @@ apply_land_mask(const Mat1b &landmask,Mat1f &clear)
 
 void
 generate_cloud_histogram_3d(const Mat1f &d1, const Mat1f &d2, const Mat1f &d3, const float *lows,
-	                        const float *highs, const float *steps, const Mat1b &mask, Mat1f &hist)
+	                        const float *highs, const float *steps, const Mat1b &mask, const Mat1b &border_mask, Mat1f &hist)
 {
 	printf("in function\n");
 	int x,y,m,n,s,i,j,k;
@@ -609,24 +609,24 @@ generate_cloud_histogram_3d(const Mat1f &d1, const Mat1f &d2, const Mat1f &d3, c
 	printf("initialized variables\n");
 	for(y = 0; y < height; ++y){
 		for(x = 0; x < width; ++x){
-			if(mask(y,x)  && isfinite(d1(y,x)) && isfinite(d2(y,x)) && isfinite(d3(y,x))){ 
+			if(mask(y,x)  && isfinite(d1(y,x)) && isfinite(d2(y,x)) && isfinite(d3(y,x))){ //&& (border_mask(y,x)==0)){ 
 				m = round(d1(y,x)/steps[0]);
 				n = round(d2(y,x)/steps[1]);
 				s = round(d3(y,x)/steps[2]);
 				
-				
-				if(m > 0 && m < (sizes[0] -1) && n > 0 && n < (sizes[1] -1)&& s > 0 && s < (sizes[2] -1)){
-					hist(m,n,s)++;
+				for(i = 0; i <= 1; ++i){
+					if((m + i> 0) && (m + i < (sizes[0] -1)) && (n > 0) && (n < (sizes[1] -1)) && (s > 0) && (s < (sizes[2] -1))){
+						hist(m+i,n,s)++;
+					}
 				}						
-								
 			}
 		}
 	}
 }
 
 void
-check_cloud_histogram_3d(const Mat1f &d1, const Mat1f &d2, const Mat1f &d3, const float *lows, const float *highs,
-	                     const float *steps, const Mat1b &mask,const Mat1f &hist, int flag, Mat_<schar> &frontmask, Mat1f &hist_count )
+check_cloud_histogram_3d(const Mat1f &d1, const Mat1f &d2, const Mat1f &d3, const float *lows, const float *highs,const float *steps,
+	                     const Mat1b &mask,const Mat1f &hist, int flag, Mat_<schar> &frontmask, const Mat1b &border_mask, Mat1f &hist_count )
 {
 	printf("in function\n");
 	int x,y,m,n,s,i;
@@ -647,14 +647,14 @@ check_cloud_histogram_3d(const Mat1f &d1, const Mat1f &d2, const Mat1f &d3, cons
 	printf("initialized variables\n");
 	for(y = 0; y < height; ++y){
 		for(x = 0; x < width; ++x){
-			if(mask(y,x) && isfinite(d1(y,x)) && isfinite(d2(y,x)) && isfinite(d3(y,x))){ 
+			if(mask(y,x) && isfinite(d1(y,x)) && isfinite(d2(y,x)) && isfinite(d3(y,x))){// && (border_mask(y,x)==0) ){ 
 				m = round(d1(y,x)/steps[0]);
 				n = round(d2(y,x)/steps[1]);
 				s = round(d3(y,x)/steps[2]);
 				
 				if(m > 0 && m < (sizes[0] -1) && n > 0 && n < (sizes[1] -1)&& s > 0 && s < (sizes[2] -1)){
 					hist_count(y,x) = hist(m,n,s);
-					if(hist(m,n,s) < 1){
+					if(hist(m,n,s) <= 1){
 						frontmask(y,x) = flag;
 					}				
 				}	

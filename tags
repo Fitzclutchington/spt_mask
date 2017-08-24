@@ -105,8 +105,8 @@ SAVENCN	spt.h	29;"	d
 SAVENPY	spt.h	26;"	d
 SGN	spt.h	24;"	d
 SOUTHPOLE	resample.cc	214;"	e	enum:Pole	file:
-SPT	spt.cc	341;"	c	file:
-SPT	spt.cc	378;"	f	class:SPT
+SPT	spt.cc	390;"	c	file:
+SPT	spt.cc	427;"	f	class:SPT
 SQ	spt.h	23;"	d
 SST_HIGH	spt.h	40;"	d
 SST_LOW	spt.h	39;"	d
@@ -128,8 +128,8 @@ __FAST_BILATERAL__	fastBilateral.hpp	30;"	d
 _mcentroidsv	connectedcomponents.cc	70;"	m	struct:cv::connectedcomponents::CCStatsOp	file:
 _mstatsv	connectedcomponents.cc	68;"	m	struct:cv::connectedcomponents::CCStatsOp	file:
 _readvar	io.cc	393;"	f	class:ACSPOFile
-acspo	spt.cc	343;"	m	class:SPT	file:
-acspotests	spt.cc	366;"	m	class:SPT	file:
+acspo	spt.cc	392;"	m	class:SPT	file:
+acspotests	spt.cc	415;"	m	class:SPT	file:
 adaptivethreshold	filters.cc	494;"	f
 apply_land_mask	utils.cc	567;"	f
 argsortlat	resample.cc	222;"	f	file:
@@ -138,11 +138,11 @@ avg3	resample.cc	99;"	f	file:
 avgfilter3	resample.cc	114;"	f	file:
 bilateralFilter	fastBilateral.hpp	92;"	f	namespace:cv_extend
 bilateralFilterImpl	fastBilateral.hpp	113;"	f	namespace:cv_extend
-border_mask	spt.cc	345;"	m	class:SPT	file:
-bt03	spt.cc	357;"	m	class:SPT	file:
-bt08	spt.cc	358;"	m	class:SPT	file:
-bt11	spt.cc	355;"	m	class:SPT	file:
-bt12	spt.cc	353;"	m	class:SPT	file:
+border_mask	spt.cc	394;"	m	class:SPT	file:
+bt03	spt.cc	406;"	m	class:SPT	file:
+bt08	spt.cc	407;"	m	class:SPT	file:
+bt11	spt.cc	404;"	m	class:SPT	file:
+bt12	spt.cc	402;"	m	class:SPT	file:
 centroidsv	connectedcomponents.cc	71;"	m	struct:cv::connectedcomponents::CCStatsOp	file:
 check_cloud_histogram_3d	utils.cc	628;"	f
 clamp	fastBilateral.hpp	45;"	f	namespace:cv_extend
@@ -156,16 +156,17 @@ connectedcomponents	connectedcomponents.cc	47;"	n	namespace:cv	file:
 connectfronts	spt.cc	135;"	f	file:
 corrcoef	utils.cc	229;"	f
 cosmat	filters.cc	357;"	f
+createsptmask	spt.cc	206;"	f	file:
 createvar	io.cc	235;"	f
 cv	connectedcomponents.cc	46;"	n	file:
 cv	connectedcomponents.h	6;"	n
 cv_extend	fastBilateral.hpp	34;"	n
-dX	spt.cc	349;"	m	class:SPT	file:
-dY	spt.cc	348;"	m	class:SPT	file:
-diff_11_12	spt.cc	364;"	m	class:SPT	file:
+dX	spt.cc	398;"	m	class:SPT	file:
+dY	spt.cc	397;"	m	class:SPT	file:
+diff_11_12	spt.cc	413;"	m	class:SPT	file:
 diffcloudmask	utils.cc	122;"	f
-easyclouds	spt.cc	365;"	m	class:SPT	file:
-eigen	spt.cc	367;"	m	class:SPT	file:
+easyclouds	spt.cc	414;"	m	class:SPT	file:
+eigen	spt.cc	416;"	m	class:SPT	file:
 emalloc	utils.cc	59;"	f
 eprintf	utils.cc	8;"	f
 estrdup	utils.cc	47;"	f
@@ -182,42 +183,42 @@ get_landborders	utils.cc	546;"	f
 gradientmag	filters.cc	72;"	f
 gradientmag	filters.cc	84;"	f
 histogram_check_3d	utils.cc	492;"	f
-icemask	spt.cc	347;"	m	class:SPT	file:
+icemask	spt.cc	396;"	m	class:SPT	file:
 init	connectedcomponents.cc	52;"	f	struct:cv::connectedcomponents::NoOp
 init	connectedcomponents.cc	77;"	f	struct:cv::connectedcomponents::CCStatsOp
 integrals	connectedcomponents.cc	72;"	m	struct:cv::connectedcomponents::CCStatsOp	file:
 isfinite	spt.h	32;"	d
-lam2	spt.cc	363;"	m	class:SPT	file:
-landmask	spt.cc	344;"	m	class:SPT	file:
+lam2	spt.cc	412;"	m	class:SPT	file:
+landmask	spt.cc	393;"	m	class:SPT	file:
 laplace_operator	filters.cc	109;"	f
 laplace_operator2	filters.cc	125;"	f
 laplacian	filters.cc	13;"	f
-laplacian	spt.cc	361;"	m	class:SPT	file:
-lat	spt.cc	351;"	m	class:SPT	file:
+laplacian	spt.cc	410;"	m	class:SPT	file:
+lat	spt.cc	400;"	m	class:SPT	file:
 loadnc	io.cc	161;"	f
 localmax	filters.cc	147;"	f
 localmax2	filters.cc	229;"	f
 logkernel	filters.cc	398;"	f
-logmag	spt.cc	350;"	m	class:SPT	file:
+logmag	spt.cc	399;"	m	class:SPT	file:
 logprintf	utils.cc	26;"	f
-lon	spt.cc	352;"	m	class:SPT	file:
-magbt11	spt.cc	356;"	m	class:SPT	file:
-magbt12	spt.cc	354;"	m	class:SPT	file:
-main	spt.cc	529;"	f
-markup	spt.cc	346;"	m	class:SPT	file:
-maskfronts	spt.cc	298;"	f	file:
+lon	spt.cc	401;"	m	class:SPT	file:
+magbt11	spt.cc	405;"	m	class:SPT	file:
+magbt12	spt.cc	403;"	m	class:SPT	file:
+main	spt.cc	665;"	f
+markup	spt.cc	395;"	m	class:SPT	file:
+maskfronts	spt.cc	318;"	f	file:
 maxn	utils.cc	206;"	f
 maxnorm3	filters.cc	23;"	f
 meangradientmag	filters.cc	131;"	f
 meann	utils.cc	190;"	f
-medSST	spt.cc	368;"	m	class:SPT	file:
+medSST	spt.cc	417;"	m	class:SPT	file:
 morphclosing	filters.cc	469;"	f
-nan_mask	spt.cc	369;"	m	class:SPT	file:
+nan_mask	spt.cc	418;"	m	class:SPT	file:
 nanblur	filters.cc	59;"	f
 nanlogfilter	filters.cc	454;"	f
 nanmask	filters.cc	431;"	f
 ncfatal	io.cc	175;"	f
-ncid	spt.cc	342;"	m	class:SPT	file:
+ncid	spt.cc	391;"	m	class:SPT	file:
 ncid	spt.h	195;"	m	class:ACSPOFile
 nelem	spt.h	25;"	d
 open_resampled	io.cc	190;"	f
@@ -234,6 +235,7 @@ readvar	io.cc	411;"	f	class:ACSPOFile
 readvar_resampled	io.cc	209;"	f
 rectdilate	spt.cc	21;"	f
 recterode	spt.cc	27;"	f
+remove_speckles	spt.cc	300;"	f	file:
 resample	spt.h	191;"	m	class:ACSPOFile
 resample_float32	resample.cc	340;"	f
 resample_init	resample.cc	325;"	f
@@ -242,9 +244,9 @@ resample_sort	resample.cc	77;"	f
 resample_sort_	resample.cc	52;"	f	file:
 resample_unsort	resample.cc	33;"	f
 resample_unsort_	resample.cc	9;"	f	file:
-residuals	spt.cc	362;"	m	class:SPT	file:
+residuals	spt.cc	411;"	m	class:SPT	file:
 row_neighbor_diffs	utils.cc	670;"	f
-run	spt.cc	448;"	f	class:SPT
+run	spt.cc	498;"	f	class:SPT
 sacspo	spt.h	120;"	m	struct:Resample
 savenc	io.cc	83;"	f
 setRoot	connectedcomponents.cc	133;"	f	namespace:cv::connectedcomponents
@@ -252,16 +254,16 @@ set_union	connectedcomponents.cc	154;"	f	namespace:cv::connectedcomponents
 sind	spt.h	120;"	m	struct:Resample
 slandmask	spt.h	120;"	m	struct:Resample
 slat	spt.h	120;"	m	struct:Resample
-sst	spt.cc	360;"	m	class:SPT	file:
-sst_ref	spt.cc	370;"	m	class:SPT	file:
-sstmag	spt.cc	359;"	m	class:SPT	file:
+sst	spt.cc	409;"	m	class:SPT	file:
+sst_ref	spt.cc	419;"	m	class:SPT	file:
+sstmag	spt.cc	408;"	m	class:SPT	file:
 statsv	connectedcomponents.cc	69;"	m	struct:cv::connectedcomponents::CCStatsOp	file:
 stdfilter	filters.cc	272;"	f
 stdfilter1	filters.cc	292;"	f
 thinfronts	spt.cc	81;"	f	file:
 trilinear_interpolation	fastBilateral.hpp	56;"	f	namespace:cv_extend
 type2str	utils.cc	71;"	f
-writesptmask	spt.cc	208;"	f	file:
+writesptmask	spt.cc	221;"	f	file:
 writevar	io.cc	324;"	f
 x	connectedcomponents.cc	63;"	m	struct:cv::connectedcomponents::Point2ui64	file:
 y	connectedcomponents.cc	63;"	m	struct:cv::connectedcomponents::Point2ui64	file:

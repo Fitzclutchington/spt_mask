@@ -166,7 +166,8 @@ connectfronts(Mat_<schar> &fronts, const Mat1f &dX, const Mat1f &dY, const Mat1f
 						for(int xx = x; xx < x+W; xx++){
 							if(valid(k) != 0 && fabs(sst(k) - csst) < 0.5 && rejected(k) == 0){
 								// cos-similarity
-								double sim = llam(k) * (dY(k)*cdY + dX(k)*cdX);
+								//double sim = llam(k) * (dY(k)*cdY + dX(k)*cdX);
+								double sim = (dY(k)*cdY + dX(k)*cdX);									
 								if(sim > max){
 									max = sim;
 									argmax = k;
@@ -201,11 +202,23 @@ connectfronts(Mat_<schar> &fronts, const Mat1f &dX, const Mat1f &dY, const Mat1f
 }
 
 
+static void
+createsptmask(const Mat1b &newacspo, const Mat_<schar> &frontsimg, Mat1b &sptmask)
+{
+	sptmask = 0;
 
+	// add fronts to sptmask
+	for(size_t i = 0; i < sptmask.total(); i++){
+		sptmask(i) = (newacspo(i)&MaskCloud) >> MaskCloudOffset;
+		if((newacspo(i)&MaskCloud) == MaskCloudClear && frontsimg(i) == FRONT_INIT){
+			sptmask(i) |= (1<<2);
+		}
+	}
+}
 // Write spt into NetCDF dataset ncid as variable named "spt_mask".
 //
 static void
-writesptmask(int ncid, const Mat1b &newacspo, const Mat_<schar> &frontsimg)
+writesptmask(int ncid, const Mat1b &sptmask)
 {
 	int n, varid, ndims, dimids[2];
 	nc_type xtype;
@@ -270,21 +283,11 @@ writesptmask(int ncid, const Mat1b &newacspo, const Mat_<schar> &frontsimg)
 		if(n != NC_NOERR){
 			ncfatal(n, "nc_inq_dimlen failed");
 		}
-		if(len != static_cast<size_t>(newacspo.size[i])){
-			eprintf("dimension %d is %d, want %d\n", i, len, newacspo.size[i]);
+		if(len != static_cast<size_t>(sptmask.size[i])){
+			eprintf("dimension %d is %d, want %d\n", i, len, sptmask.size[i]);
 		}
 	}
 	
-	Mat1b sptmask(newacspo.size());
-	sptmask = 0;
-
-	// add fronts to sptmask
-	for(size_t i = 0; i < sptmask.total(); i++){
-		sptmask(i) = (newacspo(i)&MaskCloud) >> MaskCloudOffset;
-		if((newacspo(i)&MaskCloud) == MaskCloudClear && frontsimg(i) == FRONT_INIT){
-			sptmask(i) |= (1<<2);
-		}
-	}
 
 	// Write data into netcdf variable.
 	n = nc_put_var_uchar(ncid, varid, sptmask.data);
@@ -293,10 +296,27 @@ writesptmask(int ncid, const Mat1b &newacspo, const Mat_<schar> &frontsimg)
 	}
 }
 
+static void
+remove_speckles(const Mat_<schar> &front_temp, Mat_<schar> &frontmask, int flag)
+{
+	Mat1b mask_temp(frontmask.size());
+
+	// create binary mask where temporary mask == flag
+	mask_temp.setTo(0,front_temp!=flag);
+	mask_temp.setTo(1,front_temp==flag);
+
+	// erode to remove speckles
+	recterode(mask_temp,mask_temp,5);
+	// dilate to bring back edges
+	rectdilate(mask_temp,mask_temp,5);
+
+	// insert flags into frontmask
+	frontmask.setTo(flag,mask_temp);
+}
 
 static void
 maskfronts(const Mat1f &sst, const Mat1f &magsst, const Mat1f &magbt11, const Mat1f &bt12, const Mat1f &eigen,const Mat1f &laplacian,
-	       const Mat1f &lam2, const Mat1f &medianSST, const Mat1b icemask, const Mat1b &landmask, Mat_<schar> &frontmask)
+	       const Mat1f &lam2, const Mat1f &medianSST, const Mat1b icemask, const Mat1b &landmask, const Mat1b &border_mask, Mat_<schar> &frontmask)
 {
 	float delta_n = 0.1;
 	float T_low = 271.15;
@@ -307,7 +327,7 @@ maskfronts(const Mat1f &sst, const Mat1f &magsst, const Mat1f &magbt11, const Ma
 	float eigen_thresh = 2;
 	float median_thresh = 0.5;
 	float mag_ratio_thresh = 0.5;
-	float std_thresh = 0.2;
+	float std_thresh = 0.5;
 
 	Mat1f magdiff = magsst - magbt11 ;
 	Mat1f sst_row_diff, median_row_diff;
@@ -315,25 +335,54 @@ maskfronts(const Mat1f &sst, const Mat1f &magsst, const Mat1f &magbt11, const Ma
 	row_neighbor_diffs(medianSST, median_row_diff);
 	Mat1f std_median(sst.size());
 	Mat1f std_sst(sst.size());
-    stdfilter(median_row_diff, std_median, 7);
-    stdfilter(sst_row_diff, std_sst, 7);
+	
 
+	Mat_<schar> front_temp(sst.size());
+	Mat1b mask_temp(sst.size());
+    //stdfilter(median_row_diff, std_median, 7);
+    //stdfilter(sst_row_diff, std_sst, 7);
+    stdfilter(medianSST, std_median, 7);
+    stdfilter(sst, std_sst, 7);
+    Mat1f std_diff = std_sst - std_median;
 
 	frontmask.setTo(TEST_GRADMAG_LOW, (magsst <= thresh_mag));
 	frontmask.setTo(FRONT_GUESS, (magsst > thresh_mag));	
-	frontmask.setTo(TEST_LOCALMAX,((lam2>-delta_Lam) & (frontmask==FRONT_GUESS)));
+	frontmask.setTo(TEST_LOCALMAX,((lam2>-delta_Lam) & (frontmask==FRONT_GUESS) ));
+	
 	frontmask.setTo(STD_TEST, (std_sst - std_median >std_thresh));
+	Mat1f std_test = std_sst - std_median;
+
 	frontmask.setTo(BT12_TEST, (sst<bt12));
-	frontmask.setTo(TEST_UNIFORMITY, (abs(sst - medianSST) > median_thresh));
+
+	frontmask.setTo(TEST_UNIFORMITY, ((abs(sst - medianSST) > median_thresh) & (border_mask==0)));
+	// set FRONT GUESS pixels to LOCALMAX if pixels near TEST_UNIFORMITY pixels
+	mask_temp.setTo(0,frontmask!=TEST_UNIFORMITY);
+	mask_temp.setTo(1,frontmask==TEST_UNIFORMITY);
+	rectdilate(mask_temp,mask_temp,5);
+	frontmask.setTo(TEST_LOCALMAX,((mask_temp==1)&(frontmask==FRONT_GUESS)));
+
 	frontmask.setTo(TEST_CLOUD_BOUNDARY, (magdiff < -delta_n));
 	frontmask.setTo(TEST_LAPLACIAN,(laplacian>thresh_L));
 	frontmask.setTo(COLD_CLOUD, (sst<T_low));
 	frontmask.setTo(RATIO_TEST, ((magsst>thresh_mag) & ((magdiff/magsst) > mag_ratio_thresh)));	
+
+
+	frontmask.copyTo(front_temp);
+	front_temp.setTo(EIG_TEST, (eigen>eigen_thresh));
+	remove_speckles(front_temp, frontmask, EIG_TEST);
+	/*
+	mask_temp.setTo(0,front_temp!=EIG_TEST);
+	mask_temp.setTo(1,front_temp==EIG_TEST);
+	recterode(mask_temp,mask_temp,5);
+	rectdilate(mask_temp,mask_temp,5);
+	
+	frontmask.setTo(EIG_TEST,mask_temp);
+	*/
 	frontmask.setTo(ICE_TEST,icemask);
 	frontmask.setTo(LAND,landmask);
-	frontmask.setTo(EIG_TEST,( eigen>eigen_thresh));
-	
 
+	frontmask.setTo(ICE_TEST,icemask);
+	frontmask.setTo(LAND,landmask);
 	printf("front guess = %d\n",FRONT_GUESS);
 }
 
@@ -398,11 +447,12 @@ SPT::SPT(ACSPOFile &f)
 	gradientmag(bt11, magbt11);
 	gradientmag(bt12, magbt12);
 	gradientmag(sst, sstmag, dX, dY);
-	
+
 
 	logprintf("Laplacian of Gaussican...\n");
 	nanlogfilter(sstmag, 17, 2, -17, logmag);
 	logmag.setTo(0, logmag < 0);
+
 
 	partial_derivative(dX, dXX, dXY);
 	partial_derivative(dY, dYX, dYY);
@@ -457,9 +507,9 @@ SPT::run()
 	Mat1b newacspo(sst.size());
 
 	int ref_thresh = -8;
+	
+	maskfronts(sst,sstmag, magbt11, bt12, eigen, laplacian, lam2, medSST, icemask, landmask, border_mask, frontmask);
 
-	maskfronts(sst,sstmag, magbt11, bt12, eigen, laplacian, lam2, medSST, icemask, landmask, frontmask);
-	SAVENC(frontmask);
 
 
 	easyclouds=0;
@@ -476,38 +526,97 @@ SPT::run()
 
 	float lows[3] = {(float)bt11_low,-1,0};
 	float highs[3] = {(float)bt11_high,5,5};
-	float steps[3] = {0.2,0.025,0.025};
+	float steps[3] = {0.2,0.05,0.05};
 
-	generate_cloud_histogram_3d(bt11-bt11_low, bt11-bt12+1, bt11-bt08, lows, highs, steps, ind_ocean, hist);
+	Mat_<schar> front_temp(sst.size());
+	Mat1b mask_temp(sst.size());
+	generate_cloud_histogram_3d(bt11-bt11_low, bt11-bt12+1, bt11-bt08, lows, highs, steps, ind_ocean, border_mask, hist);
+
 	Mat1f hist_count(sst.size());
-	check_cloud_histogram_3d(bt11-bt11_low, bt11-bt12+1, bt11-bt08, lows, highs, steps, ind_test, hist, NN_TEST, frontmask, hist_count);
+	check_cloud_histogram_3d(bt11-bt11_low, bt11-bt12+1, bt11-bt08, lows, highs, steps, ind_test, hist, NN_TEST, front_temp, border_mask, hist_count);
+	
+	remove_speckles(front_temp, frontmask, NN_TEST);
+	/*
+	mask_temp.setTo(0,front_temp!=NN_TEST);
+	mask_temp.setTo(1,front_temp==NN_TEST);
+	recterode(mask_temp,mask_temp,5);
+	rectdilate(mask_temp,mask_temp,5);
+	
+	frontmask.setTo(NN_TEST,mask_temp);
+	*/
+	// Some land and ice pixels may have been damaged during the removal
+	frontmask.setTo(ICE_TEST,icemask);
+	frontmask.setTo(LAND,landmask);
+	
 
 	easyclouds.setTo(1,frontmask < 0);
-
 	/* New code  */
+
 	Mat1i cluster_labels(sst.size());
 
 	connectedComponentsWithLimit(((acspo) & (easyclouds==0)), 4, MIN_CLUSTER_SIZE, cluster_labels);
 	easyclouds.setTo(1,(cluster_labels==COMP_SPECKLE));
 
 
+	/* Cluster operation 
+	1) remove clusters where difference from reference is high
+	2) remove clusters surrounded by agreed cloud 
+	*/
+	Mat1b agreed_cloud = acspo & (easyclouds==1) & (landmask==0);
+	Mat1b agreed_clear = (acspo==0) & (easyclouds==0) & (landmask==0);
+	Mat1b front_cloud_mask = (acspo==0) & (easyclouds==0) & (landmask==0);
+	Mat1b cluster_mask;
+	Mat1f cluster_ratios(agreed_cloud.size());
+	Mat1f cluster_means(agreed_cloud.size());
 
-	Mat1b ref_diff = ((sst - sst_ref) < ref_thresh);
+	int num_clear;
+	int num_cloud;
+	int y,x,i,j,lbl;
+	int lag = 1;
+	int num_fronts = 0;
+	float ratio;
+	float ratio_threshold = 0.3;
 
 	minMaxLoc(cluster_labels, &cluster_low, &cluster_high, &min_loc, &max_loc);
-	for(int i=1;i<cluster_high;++i){
-		Scalar tempVal = mean( (sst - sst_ref), (cluster_labels==i) );
+	for(lbl = 1; lbl < cluster_high; ++lbl){
+		cluster_mask = (cluster_labels==lbl);
+		Scalar tempVal = mean( (sst - sst_ref), cluster_mask );
+		num_cloud = 0;
+		num_clear = 0;
+		cluster_means.setTo(tempVal[0],cluster_mask);
 		if(tempVal[0] < ref_thresh){
-			easyclouds.setTo(1,(cluster_labels==i));
-			cluster_labels.setTo(-1,(cluster_labels==i));
+			easyclouds.setTo(1,cluster_mask);
+			cluster_labels.setTo(-1,cluster_mask);
+		}
+		// if reference condition does not catch cluster
+		// check whether cluster is surrounded by agreed cloud
+		else{
+			for(y = lag; y < easyclouds.rows - lag; ++y){
+				for(x = lag; x < easyclouds.cols - lag; ++x){
+					if(cluster_mask(y,x)){
+						for(i = -lag; i <= lag; ++i){
+							for(j = -lag; j <= lag; ++j){
+								if(agreed_cloud(y+i,x+j)){
+									num_cloud++;
+								}
+								if(agreed_clear(y+i,x+j)){
+									num_clear++;
+								}
+							}
+						}
+					}
+				}
+			}
+			if((num_clear + num_cloud != 0)) ratio = num_clear/((float)num_cloud + num_clear);
+			else ratio = -1;
+			cluster_ratios.setTo(ratio,cluster_mask);
+			if(ratio < ratio_threshold) easyclouds.setTo(1,cluster_mask);
 		}
 	}
-	/* end new code */
 
 	frontsimg.setTo(FRONT_INVALID,frontmask!=FRONT_GUESS);
 	frontsimg.setTo(FRONT_INIT,frontmask==FRONT_GUESS);
 
-	//TODO: pass logmag to thinfronts
 	connectfronts(frontsimg, dX, dY, sst, logmag, easyclouds, lam2);
 
 	rectdilate(landmask,landmask_D,7);
@@ -520,7 +629,34 @@ SPT::run()
 	frontsimg.setTo(FRONT_INIT, labels > 0);
 
 	newacspo = ((acspo) & (easyclouds==1));
-	writesptmask(ncid, newacspo, frontsimg);
+	Mat1b sptmask(sst.size());
+	createsptmask(newacspo, frontsimg, sptmask);
+
+	Mat1b restored = (((sptmask == 0) | (sptmask == 4)) & (acspo));
+	Mat1b front_restored = ((sptmask == 4) & (acspo));
+	
+	connectedComponentsWithLimit(restored, 4, MIN_CLUSTER_SIZE, cluster_labels);
+	minMaxLoc(cluster_labels, &cluster_low, &cluster_high, &min_loc, &max_loc);
+	for(lbl = 1; lbl < cluster_high; ++lbl){
+		cluster_mask = (cluster_labels==lbl);
+		num_fronts = 0;
+		// if reference condition does not catch cluster
+		// check whether cluster is surrounded by agreed cloud
+	    for(y = 0; y < easyclouds.rows; ++y){
+			for(x = 0; x < easyclouds.cols; ++x){
+				if(cluster_mask(y,x) && front_restored(y,x)){
+					num_fronts++;
+				}
+			}
+		}
+		if(num_fronts < MIN_FRONT_SIZE){
+			sptmask.setTo(3,cluster_mask);
+		}		
+	}
+
+	writesptmask(ncid, sptmask);
+
+
 }
 
 
